@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DEL · Dermoestética Láser — Medicina estética en Buenos Aires</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sage:#8E9C7D;
+    --sage-deep:#6E7C5E;
+    --olive-ink:#2B3226;
+    --cream:#F4EFE2;
+    --paper:#FAF8F2;
+    --paper-2:#F0EBDD;
+    --brass:#A98A55;
+    --line:rgba(43,50,38,.14);
+    --shadow:0 18px 50px -22px rgba(43,50,38,.45);
+    --serif:"Cormorant Garamond",Georgia,serif;
+    --sans:"Jost","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);
+    color:var(--olive-ink);
+    background:var(--paper);
+    font-weight:300;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.05;letter-spacing:.01em}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+  .eyebrow{
+    font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;
+    font-weight:400;color:var(--sage-deep);
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(250,248,242,.82);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand .logo{width:50px;height:50px;border-radius:50%;flex:none;display:block;object-fit:cover;
+    box-shadow:0 7px 20px -9px rgba(43,50,38,.55);transition:transform .3s ease}
+  .brand:hover .logo{transform:rotate(-4deg) scale(1.04)}
+  .brand .name{font-family:var(--serif);font-size:1.5rem;letter-spacing:.18em;font-weight:600}
+  .brand .name small{display:block;font-family:var(--sans);font-size:.5rem;letter-spacing:.42em;color:var(--sage-deep);margin-top:-2px}
+  .menu{display:flex;align-items:center;gap:34px}
+  .menu a{font-size:.82rem;letter-spacing:.06em;color:var(--olive-ink);opacity:.78;transition:opacity .2s}
+  .menu a:hover{opacity:1}
+  .btn{
+    display:inline-block;font-family:var(--sans);font-size:.8rem;letter-spacing:.12em;
+    text-transform:uppercase;padding:13px 26px;border-radius:999px;cursor:pointer;
+    border:1px solid var(--olive-ink);background:var(--olive-ink);color:var(--cream);
+    transition:transform .2s ease,background .2s ease,color .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn.ghost{background:transparent;color:var(--olive-ink)}
+  .btn.ghost:hover{background:var(--olive-ink);color:var(--cream)}
+  .btn.sage{background:var(--sage);border-color:var(--sage);color:#fff}
+  .btn.sage:hover{background:var(--sage-deep);border-color:var(--sage-deep)}
+  .nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px}
+  .nav-toggle span{display:block;width:24px;height:2px;background:var(--olive-ink);margin:5px 0;transition:.3s}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;background:linear-gradient(160deg,#fbf9f3 0%,#f0ecdd 100%)}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center;padding-top:88px;padding-bottom:96px}
+  .hero h1{font-size:clamp(2.9rem,6vw,4.7rem);margin:18px 0 22px}
+  .hero h1 em{font-style:italic;color:var(--sage-deep)}
+  .hero p.lead{font-size:1.08rem;max-width:30em;opacity:.85;margin-bottom:34px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  /* el logo entra solo y centrado, mantiene, y luego se corre a su lugar (derecha) */
+  .hero-logo{position:relative;display:flex;align-items:center;justify-content:center;z-index:3;
+    animation:logoIntro 2.4s cubic-bezier(.5,0,.15,1) both}
+  .hero-logo::before{content:"";position:absolute;width:84%;aspect-ratio:1;border-radius:50%;
+    background:radial-gradient(circle,rgba(142,156,125,.34),rgba(142,156,125,0) 68%);filter:blur(26px)}
+  .hero-logo img{position:relative;width:min(420px,82%);aspect-ratio:1;border-radius:50%;object-fit:cover;
+    box-shadow:0 30px 70px -28px rgba(43,50,38,.6);animation:floaty 7s ease-in-out 2.4s infinite}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+  @keyframes logoIntro{
+    0%  {opacity:0;transform:translateX(-62%) scale(1.18)}
+    14% {opacity:1;transform:translateX(-62%) scale(1.28)}
+    46% {opacity:1;transform:translateX(-62%) scale(1.28)}   /* mantiene centrado */
+    100%{opacity:1;transform:translateX(0) scale(1)}          /* se corre a la derecha */
+  }
+
+  /* el texto aparece al costado, escalonado, cuando el logo empieza a correrse */
+  @keyframes copyIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+  .hero-copy>*{opacity:0;animation:copyIn .8s ease both}
+  .hero-copy .eyebrow{animation-delay:1.25s}
+  .hero-copy h1{animation-delay:1.42s}
+  .hero-copy .lead{animation-delay:1.6s}
+  .hero-copy .hero-cta{animation-delay:1.78s}
+
+  /* ---------- trust strip ---------- */
+  .trust{background:var(--olive-ink);color:var(--cream)}
+  .trust .wrap{display:flex;flex-wrap:wrap;gap:14px 50px;justify-content:center;align-items:center;
+    padding:22px 28px;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase}
+  .trust .dot{width:5px;height:5px;border-radius:50%;background:var(--sage);display:inline-block;margin-right:14px;vertical-align:middle}
+
+  /* ---------- sections ---------- */
+  section{padding:104px 0}
+  .head{max-width:46em;margin-bottom:52px}
+  .head h2{font-size:clamp(2.1rem,4vw,3.2rem);margin:14px 0 16px}
+  .head p{opacity:.82;font-size:1.04rem}
+
+  /* treatments */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{
+    background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:34px 30px;
+    transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;position:relative;overflow:hidden;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:transparent}
+  .card .num{font-family:var(--serif);font-size:.9rem;color:var(--brass);letter-spacing:.1em}
+  .card h3{font-size:1.62rem;margin:14px 0 10px}
+  .card p{font-size:.92rem;opacity:.78}
+  .card .leaf-mini{position:absolute;right:-14px;bottom:-14px;width:84px;opacity:.08}
+  #tratamientos{background:linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%);padding-bottom:0}
+
+  /* secuencia de videos guiada por scroll */
+  .trat{position:relative;height:620vh}
+  .trat-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
+  .trat-sticky .wrap{width:100%}
+  .trat-stage{position:relative;min-height:64vh}
+  .trat-panel{position:absolute;inset:0;display:grid;grid-template-columns:1.06fr .94fr;gap:50px;
+    align-items:center;opacity:0;pointer-events:none;will-change:transform,opacity}
+  .trat-media{position:relative;aspect-ratio:4/3;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);
+    clip-path:inset(0 var(--clip,100%) 0 0)}            /* se revela desde la izquierda */
+  .trat-media video{width:100%;height:100%;object-fit:cover;display:block;background:transparent}
+  /* fondo/poster mientras no haya video cargado */
+  .trat-media::after{content:"";position:absolute;inset:0;z-index:-1}
+  .v1 .trat-media::after{background:linear-gradient(150deg,#A6B28E,#6E7C5E)}
+  .v2 .trat-media::after{background:linear-gradient(150deg,#B7A98C,#8A7A57)}
+  .v3 .trat-media::after{background:linear-gradient(150deg,#9FB0A0,#5F7568)}
+  .v4 .trat-media::after{background:linear-gradient(150deg,#C2B49B,#7E8B6B)}
+  .v5 .trat-media::after{background:linear-gradient(150deg,#94A3B0,#566977)}
+  .v6 .trat-media::after{background:linear-gradient(150deg,#A8AE8C,#5E6B4A)}
+  .trat-num{position:absolute;top:16px;left:20px;z-index:2;font-family:var(--serif);color:#fff;
+    font-size:1.5rem;letter-spacing:.08em;opacity:.92;text-shadow:0 2px 12px rgba(0,0,0,.25)}
+  .trat-badge{position:absolute;bottom:16px;left:20px;z-index:2;color:#fff;font-size:.74rem;
+    letter-spacing:.14em;text-transform:uppercase;background:rgba(43,50,38,.4);backdrop-filter:blur(4px);
+    padding:8px 14px;border-radius:999px}
+  .trat-info .eyebrow{display:block;margin-bottom:10px}
+  .trat-info h3{font-size:clamp(2rem,3.4vw,3rem);margin-bottom:14px}
+  .trat-info p{font-size:1.05rem;opacity:.82;max-width:30em;margin-bottom:26px}
+  .trat-dots{position:absolute;left:50%;bottom:6vh;transform:translateX(-50%);display:flex;gap:10px}
+  .trat-dots i{width:8px;height:8px;border-radius:50%;background:var(--olive-ink);opacity:.18;transition:opacity .3s,transform .3s}
+  .trat-dots i.on{opacity:.85;transform:scale(1.35)}
+
+  /* tecnologia */
+  .tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .tech{background:var(--olive-ink);color:var(--cream);border-radius:22px;padding:46px 42px;position:relative;overflow:hidden}
+  .tech .eyebrow{color:var(--sage)}
+  .tech h3{color:var(--cream);font-size:2.1rem;margin:12px 0 14px}
+  .tech p{opacity:.82;font-size:.96rem}
+  .tech .badge{display:inline-block;margin-top:22px;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+    border:1px solid rgba(244,239,226,.35);border-radius:999px;padding:7px 16px;color:var(--cream)}
+
+  /* doctor */
+  #doctor{background:linear-gradient(180deg,var(--paper-2) 0%,var(--paper) 100%)}
+  .doc{display:grid;grid-template-columns:.85fr 1.15fr;gap:54px;align-items:center}
+  .doc-photo{aspect-ratio:3/4;border-radius:18px;
+    background:linear-gradient(160deg,#A6B28E,#6E7C5E);box-shadow:var(--shadow);
+    display:flex;align-items:flex-end;justify-content:center;color:rgba(255,255,255,.72);
+    font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;padding-bottom:18px}
+  .doc h2{font-size:clamp(2rem,4vw,3rem);margin:14px 0 18px}
+  .doc .creds{list-style:none;margin-top:26px;display:grid;gap:14px}
+  .doc .creds li{display:flex;gap:14px;align-items:flex-start;font-size:.96rem}
+  .doc .creds .tick{color:var(--sage-deep);font-family:var(--serif);font-size:1.3rem;line-height:1}
+
+  /* turnos */
+  #turnos{background:var(--sage);color:#fff;position:relative;overflow:hidden}
+  #turnos .leaf-bg{position:absolute;right:-60px;top:-40px;width:360px;opacity:.12;pointer-events:none}
+  .turnos-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative;z-index:2}
+  #turnos .head h2{color:#fff}
+  #turnos .eyebrow{color:rgba(255,255,255,.85)}
+  #turnos .head p{color:rgba(255,255,255,.9)}
+  .note{display:flex;gap:12px;align-items:center;margin-top:26px;font-size:.92rem;color:rgba(255,255,255,.92)}
+  .form{background:var(--paper);color:var(--olive-ink);border-radius:22px;padding:38px;box-shadow:var(--shadow)}
+  .form h3{font-size:1.6rem;margin-bottom:22px}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:7px;color:var(--sage-deep)}
+  .field input,.field select{width:100%;font-family:var(--sans);font-size:.95rem;color:var(--olive-ink);
+    padding:13px 15px;border:1px solid var(--line);border-radius:11px;background:#fff;transition:border-color .2s}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--sage)}
+  .form .btn{width:100%;margin-top:8px;border-color:var(--sage);background:var(--sage);color:#fff}
+  .form .btn:hover{background:var(--sage-deep);border-color:var(--sage-deep)}
+  .form-ok{display:none;text-align:center;padding:26px 10px}
+  .form-ok .leaf-mini{width:46px;margin:0 auto 14px;opacity:.9}
+  .form-ok h3{color:var(--sage-deep)}
+
+  /* contacto */
+  #contacto .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .info{border:1px solid var(--line);border-radius:18px;padding:32px 28px}
+  .info .eyebrow{margin-bottom:12px;display:block}
+  .info h3{font-size:1.45rem;margin-bottom:6px}
+  .info p{font-size:.95rem;opacity:.82}
+  .contact-cta{margin-top:40px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+
+  /* footer */
+  footer{background:var(--olive-ink);color:var(--cream);padding:60px 0 34px}
+  .foot{display:flex;justify-content:space-between;align-items:flex-start;gap:30px;flex-wrap:wrap}
+  .foot .brand .logo{width:62px;height:62px}
+  .foot .brand .name{color:var(--cream)}
+  .foot p{font-size:.85rem;opacity:.7;max-width:24em;margin-top:14px}
+  .foot-links{display:flex;gap:28px;font-size:.82rem;opacity:.85}
+  .foot-bottom{margin-top:46px;padding-top:22px;border-top:1px solid rgba(244,239,226,.16);
+    font-size:.74rem;opacity:.6;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- scroll: las palabras aparecen desde abajo ---------- */
+  /* sin JS el texto se ve pleno; con .js cada palabra sube y aparece al scrollear */
+  .fw{display:inline-block;color:inherit}
+  html.js .fw{
+    opacity:calc(.18 + .82 * var(--p,0));
+    transform:translateY(calc((1 - var(--p,0)) * .55em));
+    will-change:opacity,transform;
+  }
+  /* "respaldo médico": se pinta de color (sólido) a medida que se scrollea */
+  html.js .hero h1 em .fw{
+    opacity:1;transform:none;
+    color:color-mix(in srgb, #c2bfb4, var(--sage-deep) calc(var(--p,0) * 100%));
+  }
+
+  /* ---------- responsive ---------- */
+  @media(max-width:880px){
+    .menu{position:fixed;inset:78px 0 auto 0;background:var(--paper);flex-direction:column;gap:0;
+      padding:10px 28px 24px;border-bottom:1px solid var(--line);transform:translateY(-130%);transition:transform .35s ease;z-index:40}
+    .menu.open{transform:none}
+    .menu a{padding:14px 0;width:100%;border-bottom:1px solid var(--line)}
+    .menu .btn{margin-top:14px;text-align:center}
+    .nav-toggle{display:block}
+    .hero .wrap{grid-template-columns:1fr;padding-top:54px;padding-bottom:64px;text-align:center}
+    .hero-cta{justify-content:center}
+    .hero-logo{order:-1;animation:logoIntroM 1.2s cubic-bezier(.2,.75,.25,1) both}
+    .hero-logo img{width:min(260px,62%)}
+    .hero-copy .eyebrow{animation-delay:1s}
+    .hero-copy h1{animation-delay:1.15s}
+    .hero-copy .lead{animation-delay:1.3s}
+    .hero-copy .hero-cta{animation-delay:1.45s}
+    @keyframes logoIntroM{from{opacity:0;transform:translateY(18px) scale(.85)}to{opacity:1;transform:none}}
+    .grid,.tech-grid,.turnos-grid,.doc,#contacto .grid3{grid-template-columns:1fr}
+    section{padding:72px 0}
+    .doc-photo{max-width:340px;margin:0 auto}
+    /* tratamientos: en móvil se apilan, sin sticky ni choreography */
+    .trat{height:auto}
+    .trat-sticky{position:static;height:auto;display:block;overflow:visible;padding:8px 0 40px}
+    .trat-panel{position:static;opacity:1!important;transform:none!important;pointer-events:auto;
+      grid-template-columns:1fr;gap:22px;margin-bottom:54px}
+    .trat-media{clip-path:none!important}
+    .trat-dots{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{scroll-behavior:auto !important}
+    .reveal{transition:none;opacity:1;transform:none}
+    .btn:hover,.card:hover{transform:none}
+    html.js .fw{opacity:1;transform:none}
+    html.js .hero h1 em .fw{color:var(--sage-deep)}
+    .hero-logo,.hero-logo img,.hero-copy>*{animation:none;opacity:1}
+  }
+</style>
+</head>
+<body>
+
+<!-- leaf mark reused -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="leaf" viewBox="0 0 64 64">
+    <path d="M32 4C18 14 12 26 12 36c0 10 8 18 20 18 0-14 0-30 0-50z" fill="currentColor"/>
+    <path d="M32 4c14 10 20 22 20 32 0 10-8 18-20 18 0-14 0-30 0-50z" fill="currentColor" opacity=".62"/>
+    <circle cx="32" cy="40" r="3.4" fill="currentColor" opacity=".4"/>
+  </symbol>
+</svg>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#inicio" aria-label="DEL Dermoestética Láser">
+      <img class="logo" src="logo.png" alt="DEL Dermoestética Láser" width="50" height="50" />
+      <span class="name">DEL<small>Dermoestética Láser</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="menu" id="menu">
+      <a href="#tratamientos">Tratamientos</a>
+      <a href="#tecnologia">Tecnología</a>
+      <a href="#doctor">Dr. Suárez</a>
+      <a href="#contacto">Contacto</a>
+      <a class="btn sage" href="#turnos">Reservar turno</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">Centro de medicina estética · Buenos Aires</span>
+        <h1>Tu belleza natural, con <em>respaldo médico</em>.</h1>
+        <p class="lead">Tratamientos faciales y corporales dirigidos por el Dr. Suárez, cirujano plástico. Tecnología Venus Legacy y CM Slim, en el corazón de CABA.</p>
+        <div class="hero-cta">
+          <a class="btn sage" href="#turnos">Reservar turno</a>
+          <a class="btn ghost" href="#tratamientos">Ver tratamientos</a>
+        </div>
+      </div>
+      <div class="hero-logo">
+        <img src="logo.png" alt="DEL · Dermoestética Láser" />
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <div class="trust">
+    <div class="wrap">
+      <span><span class="dot"></span>Centro oficial Venus Legacy</span>
+      <span><span class="dot"></span>Tecnología CM Slim</span>
+      <span><span class="dot"></span>Dirección médica · Dr. Suárez</span>
+      <span><span class="dot"></span>Palermo · CABA</span>
+    </div>
+  </div>
+
+  <!-- TRATAMIENTOS -->
+  <section id="tratamientos">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="eyebrow">Tratamientos</span>
+        <h2>Resultados pensados para tu piel y tu cuerpo</h2>
+        <p>Cada tratamiento se evalúa en consulta médica para diseñar el plan que mejor se adapta a vos.</p>
+      </div>
+    </div>
+
+    <!-- secuencia de videos guiada por scroll -->
+    <div class="trat" id="trat">
+      <div class="trat-sticky">
+        <div class="wrap">
+          <div class="trat-stage">
+
+            <article class="trat-panel v1">
+              <div class="trat-media">
+                <span class="trat-num">01</span>
+                <video class="trat-vid" muted loop playsinline preload="none"><source src="videos/depilacion.mp4" type="video/mp4"></video>
+                <span class="trat-badge">▶ Depilación láser</span>
+              </div>
+              <div class="trat-info">
+                <span class="eyebrow">Tratamiento 01</span>
+                <h3>Depilación láser</h3>
+                <p>Sesiones seguras y efectivas para una piel suave y libre de vello, en todas las zonas del cuerpo y el rostro.</p>
+                <a class="btn sage" href="#turnos">Reservar turno</a>
+              </div>
+            </article>
+
+            <article class="trat-panel v2">
+              <div class="trat-media">
+                <span class="trat-num">02</span>
+                <video class="trat-vid" muted loop playsinline preload="none"><source src="videos/labios.mp4" type="video/mp4"></video>
+                <span class="trat-badge">▶ Relleno de labios</span>
+              </div>
+              <div class="trat-info">
+                <span class="eyebrow">Tratamiento 02</span>
+                <h3>Relleno de labios</h3>
+                <p>Volumen e hidratación con ácido hialurónico, buscando un resultado armónico y natural.</p>
+                <a class="btn sage" href="#turnos">Reservar turno</a>
+              </div>
+            </article>
+
+            <article class="trat-panel v3">
+              <div class="trat-media">
+                <span class="trat-num">03</span>
+                <video class="trat-vid" muted loop playsinline preload="none"><source src="videos/rinomodelacion.mp4" type="video/mp4"></video>
+                <span class="trat-badge">▶ Rinomodelación</span>
+              </div>
+              <div class="trat-info">
+                <span class="eyebrow">Tratamiento 03</span>
+                <h3>Rinomodelación</h3>
+                <p>Corrección y armonización del perfil nasal sin cirugía, con técnica médica precisa.</p>
+                <a class="btn sage" href="#turnos">Reservar turno</a>
+              </div>
+            </article>
+
+            <article class="trat-panel v4">
+              <div class="trat-media">
+                <span class="trat-num">04</span>
+                <video class="trat-vid" muted loop playsinline preload="none"><source src="videos/facial.mp4" type="video/mp4"></video>
+                <span class="trat-badge">▶ Tratamientos faciales</span>
+              </div>
+              <div class="trat-info">
+                <span class="eyebrow">Tratamiento 04</span>
+                <h3>Tratamientos faciales</h3>
+                <p>Limpieza profunda, rejuvenecimiento y cuidado de la piel adaptados a cada rostro.</p>
+                <a class="btn sage" href="#turnos">Reservar turno</a>
+              </div>
+            </article>
+
+            <article class="trat-panel v5">
+              <div class="trat-media">
+                <span class="trat-num">05</span>
+                <video class="trat-vid" muted loop playsinline preload="none"><source src="videos/venus.mp4" type="video/mp4"></video>
+                <span class="trat-badge">▶ Venus Legacy</span>
+              </div>
+              <div class="trat-info">
+                <span class="eyebrow">Tratamiento 05</span>
+                <h3>Venus Legacy</h3>
+                <p>Radiofrecuencia para tensar la piel, reducir flacidez y trabajar la celulitis.</p>
+                <a class="btn sage" href="#turnos">Reservar turno</a>
+              </div>
+            </article>
+
+            <article class="trat-panel v6">
+              <div class="trat-media">
+                <span class="trat-num">06</span>
+                <video class="trat-vid" muted loop playsinline preload="none"><source src="videos/cmslim.mp4" type="video/mp4"></video>
+                <span class="trat-badge">▶ CM Slim</span>
+              </div>
+              <div class="trat-info">
+                <span class="eyebrow">Tratamiento 06</span>
+                <h3>CM Slim</h3>
+                <p>Tonificación muscular y modelado corporal con tecnología de última generación.</p>
+                <a class="btn sage" href="#turnos">Reservar turno</a>
+              </div>
+            </article>
+
+          </div>
+          <div class="trat-dots" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECNOLOGIA -->
+  <section id="tecnologia">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="eyebrow">Tecnología</span>
+        <h2>Equipos de referencia, en un centro oficial</h2>
+        <p>Trabajamos con las plataformas líderes en medicina estética para garantizar resultados seguros y respaldados.</p>
+      </div>
+      <div class="tech-grid">
+        <div class="tech reveal">
+          <span class="eyebrow">Radiofrecuencia</span>
+          <h3>Venus Legacy</h3>
+          <p>Tratamiento corporal y facial que combina radiofrecuencia multipolar y campos magnéticos para tensar, reducir flacidez y mejorar el aspecto de la celulitis. Somos centro oficial.</p>
+          <span class="badge">Centro oficial</span>
+        </div>
+        <div class="tech reveal">
+          <span class="eyebrow">Modelado corporal</span>
+          <h3>CM Slim</h3>
+          <p>Tecnología de electroestimulación de alta intensidad que tonifica y fortalece la musculatura mientras reduce grasa localizada, sin tiempo de recuperación.</p>
+          <span class="badge">Disponible en DEL</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOCTOR -->
+  <section id="doctor">
+    <div class="wrap doc">
+      <div class="doc-photo reveal">Foto del Dr. Suárez</div>
+      <div class="reveal">
+        <span class="eyebrow">Dirección médica</span>
+        <h2>Dr. Suárez</h2>
+        <p>Toda intervención en DEL está dirigida y supervisada por un profesional, porque la estética también es salud. La consulta médica es el primer paso de cada tratamiento.</p>
+        <ul class="creds">
+          <li><span class="tick">✦</span><span>Cirujano plástico</span></li>
+          <li><span class="tick">✦</span><span>Máster en injertos</span></li>
+          <li><span class="tick">✦</span><span>Enfoque en resultados naturales y armónicos</span></li>
+          <li><span class="tick">✦</span><span>Evaluación personalizada en cada consulta</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TURNOS -->
+  <section id="turnos">
+    <svg class="leaf-bg" style="color:#fff"><use href="#leaf"/></svg>
+    <div class="wrap turnos-grid">
+      <div class="reveal">
+        <div class="head" style="margin-bottom:0">
+          <span class="eyebrow">Turnos online</span>
+          <h2>Reservá tu turno en segundos</h2>
+          <p>Elegí el tratamiento y el día que más te conviene. Sin llamadas ni esperas: coordinás todo desde acá.</p>
+        </div>
+        <div class="note">
+          <svg width="22" height="22" style="color:#fff;flex:none"><use href="#leaf"/></svg>
+          <span>Recibís un recordatorio automático antes de tu cita.</span>
+        </div>
+      </div>
+      <div class="form reveal">
+        <form id="turnoForm">
+          <h3>Solicitar turno</h3>
+          <div class="field">
+            <label for="trat">Tratamiento</label>
+            <select id="trat" required>
+              <option value="" selected disabled>Elegí una opción</option>
+              <option>Depilación láser</option>
+              <option>Relleno de labios</option>
+              <option>Rinomodelación</option>
+              <option>Tratamiento facial</option>
+              <option>Venus Legacy</option>
+              <option>CM Slim</option>
+              <option>Consulta médica</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="fecha">Fecha preferida</label>
+            <input type="date" id="fecha" required />
+          </div>
+          <div class="field">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" placeholder="Tu nombre" required />
+          </div>
+          <div class="field">
+            <label for="tel">WhatsApp</label>
+            <input type="tel" id="tel" placeholder="11 ..." required />
+          </div>
+          <button type="submit" class="btn">Solicitar turno</button>
+        </form>
+        <div class="form-ok" id="formOk">
+          <svg class="leaf-mini" style="color:var(--sage)"><use href="#leaf"/></svg>
+          <h3>¡Listo!</h3>
+          <p>Recibimos tu solicitud. Te escribimos por WhatsApp para confirmar el turno.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="eyebrow">Contacto</span>
+        <h2>Te esperamos en DEL</h2>
+        <p>Resolvé tus dudas o coordiná tu primera consulta. Estamos para acompañarte.</p>
+      </div>
+      <div class="grid3">
+        <div class="info reveal"><span class="eyebrow">Dónde estamos</span><h3>CABA</h3><p>Ciudad Autónoma de Buenos Aires<br>(Dirección a completar)</p></div>
+        <div class="info reveal"><span class="eyebrow">Horarios</span><h3>Lun a Vie</h3><p>Atención con turno previo<br>Horario a completar</p></div>
+        <div class="info reveal"><span class="eyebrow">Escribinos</span><h3>WhatsApp</h3><p>Respondemos consultas y reservas<br>(Número a completar)</p></div>
+      </div>
+      <div class="contact-cta reveal">
+        <a class="btn sage" href="#turnos">Reservar turno</a>
+        <a class="btn ghost" href="#">Escribir por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="brand">
+          <img class="logo" src="logo.png" alt="DEL Dermoestética Láser" width="56" height="56" />
+          <span class="name">DEL<small>Dermoestética Láser</small></span>
+        </div>
+        <p>Centro de medicina estética en Buenos Aires. Dirección médica del Dr. Suárez.</p>
+      </div>
+      <div class="foot-links">
+        <a href="#tratamientos">Tratamientos</a>
+        <a href="#tecnologia">Tecnología</a>
+        <a href="#doctor">Dr. Suárez</a>
+        <a href="#turnos">Turnos</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© DEL Dermoestética Láser · Buenos Aires</span>
+      <span>Demo de diseño — los textos, fotos y datos son editables</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // mobile nav
+  const toggle=document.querySelector('.nav-toggle');
+  const menu=document.getElementById('menu');
+  toggle.addEventListener('click',()=>{
+    const open=menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded',open);
+  });
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+
+  // demo form
+  const form=document.getElementById('turnoForm');
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    form.style.display='none';
+    document.getElementById('formOk').style.display='block';
+  });
+
+  // scroll reveal (bloques)
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+  },{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // ---------- relleno de letras al scrollear ----------
+  const root=document.documentElement;
+  root.classList.add('js');
+
+  // textos que aparecen desde abajo al scrollear (todo menos el hero,
+  // que tiene su propia intro; salvo "respaldo médico", que se pinta).
+  const FILL_SELECTOR='h2,h3,.eyebrow,.lead,.head p,.doc p,.hero h1 em';
+  const fillEls=[...document.querySelectorAll(FILL_SELECTOR)]
+    .filter(el=>(el.closest('.hero')===null || el.matches('.hero h1 em')) && el.closest('.trat')===null);
+
+  // parte el texto en palabras (.fw) conservando el marcado interno (ej: <em>)
+  function splitNode(node,words){
+    [...node.childNodes].forEach(child=>{
+      if(child.nodeType===3){
+        const frag=document.createDocumentFragment();
+        child.textContent.split(/(\s+)/).forEach(tok=>{
+          if(tok==='')return;
+          if(/^\s+$/.test(tok)){frag.appendChild(document.createTextNode(tok));return;}
+          const s=document.createElement('span');
+          s.className='fw';s.textContent=tok;
+          frag.appendChild(s);words.push(s);
+        });
+        child.replaceWith(frag);
+      }else if(child.nodeType===1){
+        splitNode(child,words);
+      }
+    });
+  }
+  fillEls.forEach(el=>{
+    const words=[];
+    splitNode(el,words);
+    el._words=words;
+    el._state=null;
+  });
+
+  function setAll(el,v){
+    const s=String(v);
+    for(const w of el._words)w.style.setProperty('--p',s);
+  }
+
+  let ticking=false;
+  function updateFill(){
+    ticking=false;
+    const vh=window.innerHeight;
+    const start=vh*0.92, end=vh*0.32;   // banda donde se rellena
+    for(const el of fillEls){
+      const r=el.getBoundingClientRect();
+      if(r.top>vh){ if(el._state!==0){setAll(el,0);el._state=0;} continue; }
+      if(r.bottom<0){ if(el._state!==1){setAll(el,1);el._state=1;} continue; }
+      el._state=2;
+      const n=el._words.length;
+      const lead=Math.min(9,Math.max(4,n*0.5));   // cuántas palabras se rellenan a la vez (la onda)
+      let prog=(start-r.top)/(start-end);
+      prog=prog<0?0:prog>1?1:prog;
+      const reveal=prog*(n+lead);
+      for(let i=0;i<n;i++){
+        let lp=(reveal-i)/lead;
+        lp=lp<0?0:lp>1?1:lp;
+        el._words[i].style.setProperty('--p',lp.toFixed(3));
+      }
+    }
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(updateFill); } }
+
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+    fillEls.forEach(el=>setAll(el,1));   // sin animación: texto pleno
+  }else{
+    addEventListener('scroll',onScroll,{passive:true});
+    addEventListener('resize',onScroll,{passive:true});
+    updateFill();
+  }
+
+  // ---------- tratamientos: secuencia de videos guiada por scroll ----------
+  (function(){
+    const trat=document.getElementById('trat');
+    if(!trat)return;
+    const panels=[...trat.querySelectorAll('.trat-panel')];
+    const medias=panels.map(p=>p.querySelector('.trat-media'));
+    const vids=panels.map(p=>p.querySelector('.trat-vid'));
+    const dots=[...trat.querySelectorAll('.trat-dots i')];
+    const N=panels.length;
+    const desktop=matchMedia('(min-width:881px)');
+    const cl=x=>x<0?0:x>1?1:x, sm=x=>x*x*(3-2*x);
+    let active=-1, tick=false;
+
+    function render(){
+      tick=false;
+      if(!desktop.matches){                       // móvil: apilado, sin transform
+        panels.forEach((p,i)=>{p.style.cssText='';medias[i].style.removeProperty('--clip');});
+        return;
+      }
+      const rect=trat.getBoundingClientRect();
+      const span=rect.height-window.innerHeight;
+      if(span<=0)return;
+      const g=cl(-rect.top/span);
+      panels.forEach((p,i)=>{
+        const phi=g*(N-1)-i;                      // 0 = panel centrado
+        const enter=sm(cl((phi+0.7)/0.7));         // entra desde la derecha + se revela
+        const exit =sm(cl((phi-0.30)/0.7));        // se achica y sale
+        const op=enter*(1-exit);
+        p.style.opacity=op.toFixed(3);
+        p.style.transform='translateX('+((1-enter)*42+exit*-10).toFixed(2)+'%) scale('+(1-exit*0.18).toFixed(3)+')';
+        p.style.zIndex=String(i);
+        p.style.pointerEvents=op>0.5?'auto':'none';
+        medias[i].style.setProperty('--clip',((1-enter)*100).toFixed(1)+'%');
+      });
+      const idx=Math.min(N-1,Math.max(0,Math.round(g*(N-1))));
+      if(idx!==active){
+        active=idx;
+        dots.forEach((d,i)=>d.classList.toggle('on',i===idx));
+        vids.forEach((v,i)=>{ if(!v)return; if(i===idx){const r=v.play&&v.play();r&&r.catch&&r.catch(()=>{});}else v.pause&&v.pause(); });
+      }
+    }
+    const onScrollTrat=()=>{ if(!tick){ tick=true; requestAnimationFrame(render); } };
+    addEventListener('scroll',onScrollTrat,{passive:true});
+    addEventListener('resize',onScrollTrat,{passive:true});
+    render();
+  })();
+</script>
+</body>
+</html>
