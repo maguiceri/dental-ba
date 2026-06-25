@@ -163,11 +163,12 @@
   .head p{color:var(--ink-dim);font-size:1.06rem;max-width:40em}
 
   /* ---------- tratamientos: secuencia de videos por scroll ---------- */
-  #tratamientos{padding-bottom:0}
-  .trat{position:relative;height:400vh}
+  #tratamientos{padding-bottom:0;padding-top:74px}
+  #tratamientos .head{margin-bottom:0}
+  .trat{position:relative;height:400vh;margin-top:-8vh}
   .trat-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
   .trat-sticky .wrap{width:100%}
-  .trat-stage{position:relative;min-height:66vh}
+  .trat-stage{position:relative;min-height:64vh}
   .trat-panel{position:absolute;inset:0;display:grid;grid-template-columns:1.04fr .96fr;gap:54px;
     align-items:center;opacity:0;pointer-events:none;will-change:transform,opacity}
   .trat-media{position:relative;aspect-ratio:4/3;border-radius:20px;overflow:hidden;
@@ -766,11 +767,21 @@
   }else{
     addEventListener('scroll',onFill,{passive:true});
     addEventListener('resize',onFill,{passive:true});
-    // al hacer clic en un enlace interno (#seccion), rellena la sección destino
+    // navegación interna: salto instantáneo (evita que el carrusel se pase en
+    // cámara rápida al arrastrar el scroll suave a través de él) + rellena destino
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click',()=>{
-        const id=a.getAttribute('href').slice(1);
-        if(id) requestAnimationFrame(()=>fillContainer(document.getElementById(id)));
+      a.addEventListener('click',e=>{
+        const href=a.getAttribute('href');
+        if(href==='#') return;
+        const t=document.getElementById(href.slice(1));
+        if(!t) return;
+        e.preventDefault();
+        const htmlEl=document.documentElement, prev=htmlEl.style.scrollBehavior;
+        htmlEl.style.scrollBehavior='auto';
+        t.scrollIntoView();
+        history.replaceState(null,'',href);
+        fillContainer(t);
+        requestAnimationFrame(()=>{ htmlEl.style.scrollBehavior=prev; });
       });
     });
     updateFill();
