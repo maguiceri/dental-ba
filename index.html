@@ -85,8 +85,10 @@
   .badge .logo .line:last-child{margin-left:.16em}
   .badge.sm{width:46px}
   .badge.sm .logo{font-size:8.5px;letter-spacing:.05em}
+  .badge.sm .logo .line:last-child{margin-left:.05em}
   .badge.foot{width:58px}
-  .badge.foot .logo{font-size:10.5px;letter-spacing:.06em}
+  .badge.foot .logo{font-size:10.5px;letter-spacing:.05em}
+  .badge.foot .logo .line:last-child{margin-left:.05em}
 
   /* ---------- textura de fondo global ---------- */
   .bg-tex{position:fixed;inset:0;z-index:-2;
@@ -99,21 +101,21 @@
   .intro{position:fixed;inset:0;z-index:200;
     display:flex;align-items:center;justify-content:center;pointer-events:none}
   .intro.gone{display:none}
-  .intro-bg{position:absolute;inset:0;opacity:1;transition:opacity 1s ease;
+  .intro-bg{position:absolute;inset:0;opacity:1;transition:opacity .7s ease;
     background:radial-gradient(120% 120% at 30% 20%,#2e2a24 0%,#1b1712 60%,#141009 100%)}
   .intro-bg::before{content:"";position:absolute;inset:-20%;
     background:repeating-linear-gradient(115deg,rgba(232,222,208,.04) 0px,rgba(232,222,208,.04) 1px,
       transparent 1px,transparent 11px);transform:skewX(-12deg);opacity:.7}
   .intro.leaving .intro-bg{opacity:0}
   .intro-stage{position:relative;width:min(74vw,420px);transform-origin:center center;
-    transition:transform 1.2s cubic-bezier(.6,0,.16,1),opacity 1s ease;will-change:transform,opacity}
+    transition:transform .85s cubic-bezier(.6,0,.16,1),opacity .7s ease;will-change:transform,opacity}
   .intro.leaving .intro-stage{transform:translate(20vw,-15vh) scale(.4);opacity:0}
   .intro-stage .badge{opacity:0;transform:scale(.92);
-    animation:badgeIn 1s cubic-bezier(.2,.7,.2,1) .15s forwards}
+    animation:badgeIn .7s cubic-bezier(.2,.7,.2,1) .08s forwards}
   @keyframes badgeIn{to{opacity:1;transform:scale(1)}}
   /* letras que suben (sólo en la intro) */
   .intro .logo span{display:inline-block;opacity:0;transform:translateY(18px);
-    animation:letterIn .7s cubic-bezier(.2,.7,.2,1) forwards}
+    animation:letterIn .5s cubic-bezier(.2,.7,.2,1) forwards}
   @keyframes letterIn{to{opacity:1;transform:none}}
 
   /* ---------- botones ---------- */
@@ -684,7 +686,6 @@
     <div class="foot">
       <div>
         <div class="brand">
-          <span class="badge foot"><span class="logo"><span class="line">STUDIO</span><span class="line">DENTAL</span></span></span>
           <span class="name" style="font-size:1.2rem">Studio Dental<small>Odontología estética · Palermo Hollywood</small></span>
         </div>
         <p>Odontología estética en Palermo Hollywood. Carillas de porcelana, blanqueamiento y alineadores invisibles con resultados naturales.</p>
@@ -720,8 +721,8 @@
       });
     });
     const spans=logo.querySelectorAll('span');
-    const base=0.7; // arranca después del badge
-    spans.forEach((s,i)=>{ s.style.animationDelay=(base+i*0.06)+'s'; });
+    const base=0.4; // arranca después del badge
+    spans.forEach((s,i)=>{ s.style.animationDelay=(base+i*0.045)+'s'; });
 
     let finished=false;
     function done(){
@@ -731,10 +732,10 @@
       document.body.classList.add('entered');
       setTimeout(()=>intro.classList.add('gone'),1300);
     }
-    if(matchMedia('(prefers-reduced-motion: reduce)').matches){ setTimeout(done,400); }
-    else{ setTimeout(done,2700); }
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){ setTimeout(done,300); }
+    else{ setTimeout(done,1800); }
     // red de seguridad
-    setTimeout(()=>{ if(!finished) done(); },5000);
+    setTimeout(()=>{ if(!finished) done(); },4000);
   })();
 
   // ====== arrancar siempre desde el inicio al recargar ======
