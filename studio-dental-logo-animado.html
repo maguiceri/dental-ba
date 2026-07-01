@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Dental — Logo animado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --taupe-1:#a89f95;
+    --taupe-2:#938a80;
+    --taupe-3:#7e766c;
+    --cream:#efe9e0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    background:radial-gradient(120% 120% at 30% 20%, #2b2d33 0%, #17181d 60%, #101116 100%);
+    display:flex;align-items:center;justify-content:center;min-height:100vh;
+    font-family:"Jost",system-ui,sans-serif;overflow:hidden;
+  }
+
+  .stage{position:relative;display:flex;align-items:center;justify-content:center}
+
+  .badge{
+    width:min(74vw,440px);aspect-ratio:1;border-radius:50%;
+    background:radial-gradient(130% 130% at 32% 26%, var(--taupe-1) 0%, var(--taupe-2) 52%, var(--taupe-3) 100%);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 40px 90px -30px rgba(0,0,0,.7), inset 0 2px 10px rgba(255,255,255,.12);
+    opacity:0;transform:scale(.92);
+    animation:badgeIn 1s cubic-bezier(.2,.7,.2,1) .15s forwards;
+  }
+  @keyframes badgeIn{to{opacity:1;transform:scale(1)}}
+
+  .logo{
+    position:relative;text-align:center;color:var(--cream);
+    font-weight:200;line-height:.98;letter-spacing:.14em;
+    font-size:clamp(38px,10vw,68px);
+    -webkit-user-select:none;user-select:none;
+  }
+  .logo .line{display:block;white-space:nowrap;overflow:hidden}
+  .logo .line:last-child{margin-left:.14em} /* balance letter-spacing */
+
+  .logo span{
+    display:inline-block;opacity:0;transform:translateY(18px);
+    animation:letterIn .7s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  @keyframes letterIn{to{opacity:1;transform:none}}
+
+  /* sheen sweep */
+  .logo::after{
+    content:"";position:absolute;inset:-8% -20%;
+    background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.55) 50%,transparent 62%);
+    transform:translateX(-140%);
+    mix-blend-mode:screen;pointer-events:none;
+    animation:sheen 1.5s ease-in-out 1.9s forwards;
+  }
+  @keyframes sheen{0%{transform:translateX(-140%)}100%{transform:translateX(140%)}}
+
+  /* gentle idle breathing after intro */
+  .badge.idle{animation:breathe 5s ease-in-out 2.6s infinite}
+  @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.012)}}
+
+  .replay{
+    position:fixed;bottom:26px;left:50%;transform:translateX(-50%);
+    background:rgba(255,255,255,.08);color:#e9e6df;border:1px solid rgba(255,255,255,.18);
+    font-family:"Jost",sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    padding:11px 22px;border-radius:999px;cursor:pointer;backdrop-filter:blur(6px);
+    transition:background .2s,transform .2s;
+  }
+  .replay:hover{background:rgba(255,255,255,.16);transform:translateX(-50%) translateY(-2px)}
+
+  @media(prefers-reduced-motion:reduce){
+    .badge,.logo span,.logo::after{animation:none;opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="badge" id="badge">
+      <div class="logo" id="logo">
+        <span class="line" data-word="STUDIO"></span>
+        <span class="line" data-word="DENTAL"></span>
+      </div>
+    </div>
+  </div>
+  <button class="replay" onclick="play()">Reproducir de nuevo</button>
+
+<script>
+  const logo = document.getElementById('logo');
+  const badge = document.getElementById('badge');
+  const lines = logo.querySelectorAll('.line');
+
+  function build(){
+    lines.forEach(line=>{
+      const word = line.dataset.word;
+      line.innerHTML='';
+      [...word].forEach(ch=>{
+        const s=document.createElement('span');
+        s.textContent=ch;
+        line.appendChild(s);
+      });
+    });
+  }
+
+  function play(){
+    badge.classList.remove('idle');
+    // restart badge + sheen by reflow
+    badge.style.animation='none'; void badge.offsetWidth; badge.style.animation='';
+    const spans=logo.querySelectorAll('span');
+    const base=0.7; // after badge starts
+    spans.forEach((s,i)=>{
+      s.style.animation='none'; void s.offsetWidth;
+      s.style.animation='';
+      s.style.animationDelay=(base + i*0.06)+'s';
+    });
+    // re-arm sheen
+    logo.style.setProperty('--x','0');
+    setTimeout(()=>badge.classList.add('idle'), 2600);
+  }
+
+  build();
+  play();
+</script>
+</body>
+</html>
