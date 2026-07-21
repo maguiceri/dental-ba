@@ -90,35 +90,20 @@
     background:repeating-linear-gradient(115deg,rgba(130,95,55,.03) 0px,rgba(130,95,55,.03) 1px,
       transparent 1px,transparent 12px);transform:skewX(-12deg);opacity:.85}
 
-  /* ---------- marca: diente + wordmark (se usa en el hero y en la intro) ---------- */
-  .mark{display:flex;align-items:center;justify-content:center;gap:clamp(12px,2.2vw,24px)}
-  .mark-tooth{width:clamp(74px,11vw,118px);height:auto;flex:none;overflow:visible}
-  .mark-tooth .t-body{fill:none;stroke:var(--clay-2);stroke-width:1.5;
-    stroke-linecap:round;stroke-linejoin:round}
-  .mark-tooth .t-swoosh{fill:var(--taupe-2)}
-  .mark-txt{text-align:left}
-  .mark-name{display:block;font-family:var(--sans);font-weight:200;
-    font-size:clamp(2.5rem,6.4vw,4.4rem);letter-spacing:.07em;line-height:.94;color:var(--taupe-3)}
-  .mark-sub{display:block;font-family:var(--serif);font-style:italic;font-weight:500;
-    font-size:clamp(.95rem,2vw,1.45rem);letter-spacing:.05em;color:var(--taupe-deep);
-    margin-top:.3em;padding-left:.2em}
+  /* ---------- logo (mismo dibujo, en tonos tierra) ---------- */
+  .logo-img{width:100%;height:auto}
 
-  /* ---------- intro: el diente se dibuja y después aparece el nombre ---------- */
-  .intro{position:fixed;inset:0;z-index:200;background:#ffffff;overflow:hidden;
+  /* ---------- intro: el logo se revela de izquierda a derecha ---------- */
+  .intro{position:fixed;inset:0;z-index:200;background:var(--sand);overflow:hidden;
     pointer-events:none;opacity:1;transition:opacity .7s ease}
   .intro.gone{display:none}
   .intro.leaving{opacity:0}
   .intro-anim{position:absolute;inset:0;display:grid;place-items:center;padding:24px;
     transition:transform .9s cubic-bezier(.6,0,.16,1);will-change:transform}
   .intro.leaving .intro-anim{transform:scale(.94)}
-  .intro .mark{width:min(88vw,760px)}
-  @keyframes drawTooth{from{stroke-dashoffset:230}to{stroke-dashoffset:0}}
-  @keyframes swooshIn{from{opacity:0;transform:translate(-6px,7px) rotate(-7deg)}to{opacity:1;transform:none}}
-  @keyframes wipeIn{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 -6% 0 0)}}
-  .intro .t-body{stroke-dasharray:230;animation:drawTooth 1.5s cubic-bezier(.5,0,.25,1) .25s both}
-  .intro .t-swoosh{transform-origin:70% 60%;animation:swooshIn .8s cubic-bezier(.4,0,.2,1) 1.35s both}
-  .intro .mark-name{animation:wipeIn 1s cubic-bezier(.55,0,.2,1) 1.55s both}
-  .intro .mark-sub{animation:wipeIn .9s cubic-bezier(.55,0,.2,1) 2.35s both}
+  .intro .logo-img{width:min(86vw,700px)}
+  @keyframes logoWipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 -4% 0 0)}}
+  .intro .logo-img{animation:logoWipe 2.2s cubic-bezier(.55,0,.2,1) .3s both}
 
   /* ---------- botones ---------- */
   .btn{display:inline-block;font-family:var(--sans);font-size:.72rem;letter-spacing:.22em;
@@ -161,9 +146,8 @@
     font-size:clamp(1.05rem,2.1vw,1.55rem);color:var(--taupe-deep);margin-top:16px;letter-spacing:.02em;line-height:1.3}
   .hero p.lead{font-size:1.08rem;max-width:36em;color:var(--ink-dim);margin:30px 0 38px;font-weight:300}
   .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
-  /* wordmark en su columna (recibe la intro) */
+  /* logo en su columna (recibe la intro) */
   .hero-logo{justify-self:center;width:min(100%,470px)}
-  .hero-logo .mark-tooth{filter:drop-shadow(0 14px 28px rgba(80,55,32,.14))}
 
   @keyframes copyIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
   .hero-inner>*{opacity:0}
@@ -419,8 +403,7 @@
     .hero-inner>*,.hero-logo{animation:none!important;opacity:1}
     .trust-track{animation:none}
     .intro-anim{transition:none;transform:none}
-    .intro .t-body,.intro .t-swoosh,.intro .mark-name,.intro .mark-sub{
-      animation:none!important;stroke-dashoffset:0;clip-path:none;opacity:1;transform:none}
+    .intro .logo-img{animation:none!important;clip-path:none}
     html.js .doc-photo,html.js .doc-photo.in{clip-path:none;transition:none}
     html.js .fw{opacity:1;transform:none}
   }
@@ -433,16 +416,7 @@
 <!-- ============ INTRO: EL DIENTE APARECE, SE CORRE AL COSTADO Y APARECE EL TEXTO ============ -->
 <div class="intro" id="intro" aria-hidden="true">
   <div class="intro-anim">
-    <div class="mark">
-      <svg class="mark-tooth" viewBox="0 0 64 54" fill="none" aria-hidden="true">
-        <path class="t-body" d="M16,10 C12,6 7,9 8,17 C9,26 12,31 15,40 C16.5,44 22,44 23,39 C23.6,35 24.4,35 25,39 C26,44 31.5,44 33,40 C36,31 39,26 40,17 C41,9 36,6 32,10 C28,14 20,14 16,10 Z" transform="translate(3,8)"/>
-        <path class="t-swoosh" d="M26,14 C34,3 50,0 58,7 C50,4 39,7 32,17 Z"/>
-      </svg>
-      <span class="mark-txt">
-        <span class="mark-name">dental</span>
-        <span class="mark-sub">estética integral</span>
-      </span>
-    </div>
+    <img class="logo-img" src="logo-tierra.png" alt="" />
   </div>
 </div>
 
@@ -482,17 +456,8 @@
           <a class="btn ghost" href="#tratamientos">Ver tratamientos</a>
         </div>
       </div>
-      <div class="hero-logo" role="img" aria-label="dental — estética integral">
-        <div class="mark">
-          <svg class="mark-tooth" viewBox="0 0 64 54" fill="none" aria-hidden="true">
-            <path class="t-body" d="M16,10 C12,6 7,9 8,17 C9,26 12,31 15,40 C16.5,44 22,44 23,39 C23.6,35 24.4,35 25,39 C26,44 31.5,44 33,40 C36,31 39,26 40,17 C41,9 36,6 32,10 C28,14 20,14 16,10 Z" transform="translate(3,8)"/>
-            <path class="t-swoosh" d="M26,14 C34,3 50,0 58,7 C50,4 39,7 32,17 Z"/>
-          </svg>
-          <span class="mark-txt">
-            <span class="mark-name">dental</span>
-            <span class="mark-sub">estética integral</span>
-          </span>
-        </div>
+      <div class="hero-logo">
+        <img class="logo-img" src="logo-tierra.png" alt="dental — estética integral" />
       </div>
     </div>
   </section>
