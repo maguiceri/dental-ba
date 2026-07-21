@@ -489,7 +489,7 @@
     <div class="wrap">
       <div class="esp">
         <div class="esp-media reveal">
-          <img src="despues.png" alt="Sonrisa con los dientes blancos después de un blanqueamiento" />
+          <img src="despues.png" width="1536" height="1024" decoding="async" alt="Sonrisa con los dientes blancos después de un blanqueamiento" />
           <span class="esp-tag">brillo</span>
         </div>
         <div class="reveal">
@@ -757,12 +757,27 @@
   menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
 
   // ====== scroll reveal ======
-  const io=new IntersectionObserver((entries)=>{
-    entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
-  },{threshold:.14});
-  document.querySelectorAll('.reveal,.doc-photo').forEach(el=>io.observe(el));
-  // red de seguridad: si el observer no se dispara, revela el cuadro igual
-  setTimeout(()=>document.querySelectorAll('.doc-photo:not(.in)').forEach(el=>el.classList.add('in')),2500);
+  const revealables=()=>document.querySelectorAll('.reveal:not(.in),.doc-photo:not(.in)');
+  function revealVisible(){
+    revealables().forEach(el=>{
+      const r=el.getBoundingClientRect();
+      if(r.top<innerHeight*.92&&r.bottom>0) el.classList.add('in');
+    });
+  }
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+    },{threshold:.14});
+    document.querySelectorAll('.reveal,.doc-photo').forEach(el=>io.observe(el));
+  }
+  // red de seguridad: si el observer no llega a dispararse, revelamos por scroll
+  let ticking=false;
+  addEventListener('scroll',()=>{
+    if(ticking) return; ticking=true;
+    requestAnimationFrame(()=>{revealVisible();ticking=false;});
+  },{passive:true});
+  setTimeout(revealVisible,2500);
+  setTimeout(()=>document.querySelectorAll('.reveal:not(.in),.doc-photo:not(.in)').forEach(el=>el.classList.add('in')),9000);
 
   // ====== comparador antes / después ======
   (function(){
