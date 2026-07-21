@@ -366,12 +366,12 @@
     .hero-cta{justify-content:center}
     .hero-logo{order:-1;width:min(78%,340px)}
     .esp,.grid3,.turnos-grid,.doc,.gallery,.reviews,.svc{grid-template-columns:1fr}
-    .esp-media{max-width:380px;margin:0 auto;order:-1}
+    .esp-media{width:100%;max-width:380px;margin:0 auto;order:-1}
     section{padding:74px 0}
     .head{margin-bottom:40px}
     .svc-head{margin:60px 0 32px}
     .doc{gap:34px}
-    .doc-photo{max-width:320px;margin:0 auto}
+    .doc-photo{width:100%;max-width:320px;margin:0 auto}
     .trust-item{font-size:.72rem;margin-right:42px;padding:18px 0}
     .trust-track{animation-duration:24s}
     .turnos-grid{gap:38px}
@@ -395,6 +395,13 @@
     .head h2{font-size:clamp(2rem,8vw,2.6rem)}
     .contact-cta{flex-direction:column;align-items:stretch}
     .contact-cta .btn{width:100%;text-align:center}
+  }
+  /* navegadores sin aspect-ratio (iOS < 15): las cajas quedaban sin alto */
+  @supports not (aspect-ratio:1/1){
+    .esp-media{height:0;padding-top:125%}
+    .ba{height:0;padding-top:62.5%}
+    .ba-card .cell{height:0;padding-top:68.75%}
+    .doc-photo{height:0;padding-top:133.33%}
   }
   @media(prefers-reduced-motion:reduce){
     *{scroll-behavior:auto!important}
@@ -489,7 +496,7 @@
     <div class="wrap">
       <div class="esp">
         <div class="esp-media reveal">
-          <img src="despues.png" width="1536" height="1024" decoding="async" alt="Sonrisa con los dientes blancos después de un blanqueamiento" />
+          <img src="despues.jpg" width="1400" height="933" decoding="async" alt="Sonrisa con los dientes blancos después de un blanqueamiento" />
           <span class="esp-tag">brillo</span>
         </div>
         <div class="reveal">
@@ -587,10 +594,10 @@
       <!-- comparador deslizable (reemplazar imágenes por fotos reales) -->
       <div class="ba reveal" id="ba" aria-label="Comparador antes y después">
         <div class="ba-pane ba-before">
-          <img src="antes.png" alt="Sonrisa antes del tratamiento" />
+          <img src="antes.jpg" width="1400" height="933" loading="lazy" decoding="async" alt="Sonrisa antes del tratamiento" />
         </div>
         <div class="ba-pane ba-after" id="baAfter">
-          <img src="despues.png" alt="Sonrisa después del tratamiento" />
+          <img src="despues.jpg" width="1400" height="933" loading="lazy" decoding="async" alt="Sonrisa después del tratamiento" />
         </div>
         <span class="ba-tag l">Antes</span>
         <span class="ba-tag r">Después</span>
